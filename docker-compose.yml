@@ -30,7 +30,7 @@ services:
         # domain:
         # https_only: false
         # statistics_enabled: false
-        hmac_key: "CHANGE_ME!!"
+        hmac_key: "Hcdjke84nscJIow29ednZMs7W1EqLbPWo8NxR9Gy1bQ="
     healthcheck:
       test: wget -nv --tries=1 --spider http://127.0.0.1:3000/api/v1/trending || exit 1
       interval: 30s

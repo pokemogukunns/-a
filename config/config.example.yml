@@ -468,7 +468,7 @@ jobs:
 ## Accepted values: a string
 ## Default: <none>
 ##
-hmac_key: "CHANGE_ME!!"
+hmac_key: "Hcdjke84nscJIow29ednZMs7W1EqLbPWo8NxR9Gy1bQ="
 
 ##
 ## List of video IDs where the "download" widget must be
