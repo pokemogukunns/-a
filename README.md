@@ -135,36 +135,65 @@ You can read more here: https://docs.invidious.io/applications/
 
 ### Translations
 
-We use [Weblate](https://weblate.org) to manage Invidious translations.
+私たちは使う[ウェプレート](https://weblate.org) invidiousの翻訳を管理する。
 
-You can suggest new translations and/or correction here: https://hosted.weblate.org/engage/invidious/.
-
-Creating an account is not required, but recommended, especially if you want to contribute regularly.
-Weblate also allows you to log-in with major SSO providers like Github, Gitlab, BitBucket, Google, ...
+ここで新しい翻訳や修正を提案することができます: https://hosted.weblate.org/engage/invidious/.
+アカウントの作成は必須ではありませんが、特に定期的に寄付したい場合はお勧めします。
+Weblateでは、Github、Gitlab、BitBucket、Googleなどの主要なSSOプロバイダーにログインすることもできます。
 
 
 ## Projects using Invidious
 
-A list of projects and extensions for or utilizing Invidious can be found in the documentation: https://docs.invidious.io/applications/
+Invidiousのプロジェクトと拡張機能のリスト、またはInvidiousを利用するプロジェクトと拡張機能のリストは、ドキュメントで見つけることができます。: https://docs.invidious.io/applications/
 
 ## Liability
 
-We take no responsibility for the use of our tool, or external instances
-provided by third parties. We strongly recommend you abide by the valid
-official regulations in your country. Furthermore, we refuse liability
-for any inappropriate use of Invidious, such as illegal downloading.
-This tool is provided to you in the spirit of free, open software.
-
-You may view the LICENSE in which this software is provided to you [here](./LICENSE).
+当社は、当社のツールまたは外部インスタンスの使用について責任を負いません。
+第三者によって提供されます。有効な遵守を強くお勧めします
+あなたの国の公式規制。さらに、私たちは責任を拒否します
+違法ダウンロードなど、Invidiousの不適切な使用。
+このツールは、無料でオープンなソフトウェアの精神で提供されます。
+このソフトウェアが提供されているライセンスを表示できます。 [here](./LICENSE).
 
 >   16. Limitation of Liability.
 >
-> IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
-WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS
-THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
-GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
-USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF
-DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD
-PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
-EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
-SUCH DAMAGES.
+> 適用法で要求されるか、書面で合意されない限り、いかなる場合も
+著作権者、または変更および/または伝達する他の当事者は
+上記で許可されているように、プログラムは、以下を含む損害についてあなたに責任を負います。
+に起因する一般的、特別的、偶発的または結果的な損害
+プログラムの使用または使用不能（損失を含むがこれらに限定されない）
+データまたはデータが不正確であるか、またはあなたまたは第三者によって維持された損失
+当事者またはプログラムが他のプログラムで動作しなかった場合）、
+そのような保有者または他の当事者がの可能性について助言を受けたとしても
+そのような損害。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### そんなことはどうでもよくてinvidiousの完全コピー完了
+
+
+
+
+
+
+
