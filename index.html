@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ページの再読み込み</title>
+    <script>
+        // 10秒後にページを再読み込みする関数
+        function reloadPage() {
+            setTimeout(function() {
+                location.reload(); // ページを再読み込み
+            }, 10000); // 10秒（10000ミリ秒）
+        }
+
+        // ページロード時に埋め込むURLを表示
+        window.onload = function() {
+            // URLを埋め込む
+            document.getElementById("iframe1").src = "https://sturdy-carnival-pjg9g9j5w66739pqp-3000.app.github.dev/";
+            document.getElementById("iframe2").src = "https://sturdy-carnival-pjg9g9j5w66739pqp-5000.app.github.dev/";
+            
+            // 10秒後にページを再読み込み
+            reloadPage();
+        }
+    </script>
+</head>
+<body>
+    <h1>埋め込まれたコンテンツ</h1>
+    <p>以下のURLを埋め込んで表示します。</p>
+
+    <iframe id="iframe1" width="600" height="400"></iframe>
+    <iframe id="iframe2" width="600" height="400"></iframe>
+
+</body>
+</html>
