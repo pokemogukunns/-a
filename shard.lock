@@ -1,12 +1,8 @@
 version: 2.0
 shards:
-  ameba:
-    git: https://github.com/crystal-ameba/ameba.git
-    version: 1.6.1
-
   athena-negotiation:
     git: https://github.com/athena-framework/negotiation.git
-    version: 0.1.1
+    version: 0.1.5
 
   backtracer:
     git: https://github.com/sija/backtracer.cr.git
@@ -24,6 +20,10 @@ shards:
     git: https://github.com/mamantoha/http_proxy.git
     version: 0.10.3
 
+  inotify:
+    git: https://github.com/petoem/inotify.cr.git
+    version: 1.0.3
+
   kemal:
     git: https://github.com/kemalcr/kemal.git
     version: 1.1.2
@@ -36,6 +36,10 @@ shards:
     git: https://github.com/will/crystal-pg.git
     version: 0.28.0
 
+  pool:
+    git: https://github.com/ysbaddaden/pool.git
+    version: 0.2.4
+
   protodec:
     git: https://github.com/iv-org/protodec.git
     version: 0.1.5
@@ -44,11 +48,10 @@ shards:
     git: https://github.com/luislavena/radix.git
     version: 0.4.1
 
-  spectator:
-    git: https://github.com/icy-arctic-fox/spectator.git
-    version: 0.10.6
+  redis:
+    git: https://github.com/stefanwille/crystal-redis.git
+    version: 2.9.1
 
   sqlite3:
     git: https://github.com/crystal-lang/crystal-sqlite3.git
     version: 0.21.0
-
