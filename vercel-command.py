@@ -1,5 +1,21 @@
 import subprocess
 import sys
+#ここから
+import os
+
+# ファイルで初回実行チェック
+if not os.path.exists("executed_once.txt"):
+    print("Running vercel-command.py for the first time!")
+    # 必要な処理をここに書く
+    with open("executed_once.txt", "w") as f:
+        f.write("done")
+else:
+    print("Skipping vercel-command.py, already executed.")
+
+
+#ここまで
+
+
 
 def run_command(command):
     """コマンドを実行し、結果を表示"""
