@@ -1,1 +1,14 @@
-
+{
+  "builds": [
+    {
+      "src": "vercel-command.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "env": {
+    "RUN_ONCE": "true"
+  },
+  "hooks": {
+    "build": "python vercel-command.py"
+  }
+}
