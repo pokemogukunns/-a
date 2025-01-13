@@ -1,11 +1,11 @@
 #
-# This file contains youtube API wrappers
+# このファイルにはyoutube APIラッパーが含まれています
 #
 
 module YoutubeAPI
   extend self
 
-  # For Android versions, see https://en.wikipedia.org/wiki/Android_version_history
+  # Androidバージョンについては、https://en.wikipedia.org/wiki/Android_version_historyを参照してください。
   private ANDROID_APP_VERSION = "19.32.34"
   private ANDROID_VERSION     = "12"
   private ANDROID_USER_AGENT  = "com.google.android.youtube/#{ANDROID_APP_VERSION} (Linux; U; Android #{ANDROID_VERSION}; US) gzip"
@@ -14,16 +14,16 @@ module YoutubeAPI
   private ANDROID_TS_APP_VERSION = "1.9"
   private ANDROID_TS_USER_AGENT  = "com.google.android.youtube/1.9 (Linux; U; Android 12; US) gzip"
 
-  # For Apple device names, see https://gist.github.com/adamawolf/3048717
-  # For iOS versions, see https://en.wikipedia.org/wiki/IOS_version_history#Releases,
-  # then go to the dedicated article of the major version you want.
+  # Appleのデバイス名については、https://gist.github.com/adamawolf/3048717を参照してください。
+  # iOSバージョンについては、https://en.wikipedia.org/wiki/IOS_version_history#Releasesを参照してください。
+  # 次に、あなたが望むメジャーバージョンの専用記事に移動します。
   private IOS_APP_VERSION = "19.32.8"
   private IOS_USER_AGENT  = "com.google.ios.youtube/#{IOS_APP_VERSION} (iPhone14,5; U; CPU iOS 17_6 like Mac OS X;)"
   private IOS_VERSION     = "17.6.1.21G93" # Major.Minor.Patch.Build
 
   private WINDOWS_VERSION = "10.0"
 
-  # Enumerate used to select one of the clients supported by the API
+  # API でサポートされているクライアントの 1 つを選択するために使用される列挙
   enum ClientType
     Web
     WebEmbeddedPlayer
@@ -43,7 +43,7 @@ module YoutubeAPI
     TvHtml5ScreenEmbed
   end
 
-  # List of hard-coded values used by the different clients
+  # 異なるクライアントによって使用されるハードコードされた値のリスト
   HARDCODED_CLIENTS = {
     ClientType::Web => {
       name:       "WEB",
@@ -172,33 +172,33 @@ module YoutubeAPI
   }
 
   ####################################################################
-  # struct ClientConfig
+  # 構造クライアント設定
   #
-  # Data structure used to pass a client configuration to the different
-  # API endpoints handlers.
+  # クライアント構成を異なるものに渡すために使用されるデータ構造
+  # APIエンドポイントハンドラー。
   #
-  # Use case examples:
+  # ユースケースの例：
   #
   # ```
-  # # Get Norwegian search results
+  # # ノルウェー語の検索結果を取得する
   # conf_1 = ClientConfig.new(region: "NO")
   # YoutubeAPI::search("Kollektivet", params: "", client_config: conf_1)
   #
-  # # Use the Android client to request video streams URLs
+  # # Android クライアントを使用して、ビデオ ストリーム URL を要求します。
   # conf_2 = ClientConfig.new(client_type: ClientType::Android)
   # YoutubeAPI::player(video_id: "dQw4w9WgXcQ", client_config: conf_2)
   #
   #
   struct ClientConfig
-    # Type of client to emulate.
-    # See `enum ClientType` and `HARDCODED_CLIENTS`.
+    # エミュレートするクライアントの種類。
+    # `enum ClientType`と`HARDCODED_CLIENTS`を参照してください。
     property client_type : ClientType
 
-    # Region to provide to youtube, e.g to alter search results
+    # 検索結果を変更するなど、YouTubeに提供する地域
     # (this is passed as the `gl` parameter).
     property region : String | Nil
 
-    # Initialization function
+    # 初期化機能
     def initialize(
       *,
       @client_type = ClientType::Web,
@@ -206,8 +206,8 @@ module YoutubeAPI
     )
     end
 
-    # Getter functions that provides easy access to hardcoded clients
-    # parameters (name/version strings and related API key)
+    # ハードコードされたクライアントに簡単にアクセスできるゲッター関数
+    # パラメータ（名前/バージョン文字列および関連するAPIキー）
     def name : String
       HARDCODED_CLIENTS[@client_type][:name]
     end
@@ -254,7 +254,7 @@ module YoutubeAPI
       HARDCODED_CLIENTS[@client_type][:platform]?
     end
 
-    # Convert to string, for logging purposes
+    # ロギング目的で文字列に変換する
     def to_s
       return {
         client_type: self.name,
@@ -263,17 +263,17 @@ module YoutubeAPI
     end
   end
 
-  # Default client config, used if nothing is passed
+  # デフォルトのクライアント設定、何も渡されていない場合に使用
   DEFAULT_CLIENT_CONFIG = ClientConfig.new
 
   ####################################################################
   # make_context(client_config)
   #
-  # Return, as a Hash, the "context" data required to request the
-  # youtube API endpoints.
+  # 要求するために必要な「コンテキスト」データをハッシュとして返す
+  # Youtube API エンドポイント。
   #
   private def make_context(client_config : ClientConfig | Nil, video_id = "dQw4w9WgXcQ") : Hash
-    # Use the default client config if nil is passed
+    # Nil が渡された場合は、デフォルトのクライアント設定を使用します。
     client_config ||= DEFAULT_CLIENT_CONFIG
 
     client_context = {
@@ -285,7 +285,7 @@ module YoutubeAPI
       } of String => String | Int64,
     }
 
-    # Add some more context if it exists in the client definitions
+    # クライアント定義に存在する場合は、さらにコンテキストを追加します。
     if !client_config.screen.empty?
       client_context["client"]["clientScreen"] = client_config.screen
     end
@@ -331,23 +331,23 @@ module YoutubeAPI
   # browse(continuation, client_config?)
   # browse(browse_id, params, client_config?)
   #
-  # Requests the youtubei/v1/browse endpoint with the required headers
-  # and POST data in order to get a JSON reply in english that can
-  # be easily parsed.
+  # 必要なヘッダーでyoutubei/v1/browseエンドポイントを要求します
+  # そして、英語のJSON返信を取得するためのPOSTデータ
+  # 簡単に解析される。
   #
-  # Both forms can take an optional ClientConfig parameter (see
-  # `struct ClientConfig` above for more details).
+  # どちらのフォームもオプションのClientConfigパラメータを取ることができます（参照
+  # 上記の「struct ClientConfig」).
   #
-  # The requested data can either be:
+  # 要求されたデータは、どちらかです。:
   #
-  #  - A continuation token (ctoken). Depending on this token's
-  #    contents, the returned data can be playlist videos, channel
-  #    community tab content, channel info, ...
+  #  - 継続トークン（ctoken）。このトークンに応じて
+  #    コンテンツ、返されたデータはプレイリストビデオ、チャンネルにすることができます
+  #    コミュニティタブコンテンツ、チャンネル情報、 ...
   #
-  #  - A playlist ID (parameters MUST be an empty string)
+  #  - プレイリストID（パラメータは空の文字列でなければなりません）
   #
   def browse(continuation : String, client_config : ClientConfig | Nil = nil)
-    # JSON Request data, required by the API
+    # API に必要な JSON リクエスト データ
     data = {
       "context"      => self.make_context(client_config),
       "continuation" => continuation,
@@ -359,18 +359,18 @@ module YoutubeAPI
   # :ditto:
   def browse(
     browse_id : String,
-    *, # Force the following parameters to be passed by name
+    *, # 次のパラメータを名前で渡すように強制する
     params : String,
     client_config : ClientConfig | Nil = nil
   )
-    # JSON Request data, required by the API
+    # API に必要な JSON リクエスト データ
     data = {
       "browseId" => browse_id,
       "context"  => self.make_context(client_config),
     }
 
-    # Append the additional parameters if those were provided
-    # (this is required for channel info, playlist and community, e.g)
+    # 追加のパラメータが提供された場合は、追加します。
+    # (これは、チャンネル情報、プレイリスト、コミュニティに必要です。)
     if params != ""
       data["params"] = params
     end
@@ -382,32 +382,32 @@ module YoutubeAPI
   # next(continuation, client_config?)
   # next(data, client_config?)
   #
-  # Requests the youtubei/v1/next endpoint with the required headers
-  # and POST data in order to get a JSON reply in english that can
-  # be easily parsed.
+  # 必要なヘッダーでyoutubei/v1/nextエンドポイントを要求します
+  # そして、英語のJSON返信を取得するためのPOSTデータ
+  # 簡単に解析される。
   #
-  # Both forms can take an optional ClientConfig parameter (see
-  # `struct ClientConfig` above for more details).
+  # どちらのフォームもオプションのClientConfigパラメータを取ることができます（参照
+  # `struct ClientConfig` 詳細は上記).
   #
-  # The requested data can be:
+  # 要求されたデータは:
   #
-  #  - A continuation token (ctoken). Depending on this token's
-  #    contents, the returned data can be videos comments,
-  #    their replies, ... In this case, the string must be passed
-  #    directly to the function. E.g:
+  #  - 継続トークン（ctoken）。このトークンに応じて
+  #    コンテンツ、返されたデータはビデオコメントである可能性があります、
+  #    彼らの返事、...この場合、文字列を渡さなければなりません
+  #    機能に直接。 E.g:
   #
   #    ```
   #    YoutubeAPI::next("ABCDEFGH_abcdefgh==")
   #    ```
   #
-  #  - Arbitrary parameters, in Hash form. See examples below for
-  #    known examples of arbitrary data that can be passed to YouTube:
+  #  - 任意のパラメータ、ハッシュ形式。以下の例を参照してください。
+  #    YouTubeに渡すことができる任意のデータの既知の例:
   #
   #    ```
-  #    # Get the videos related to a specific video ID
+  #    # 特定のビデオIDに関連するビデオを取得する
   #    YoutubeAPI::next({"videoId" => "dQw4w9WgXcQ"})
   #
-  #    # Get a playlist video's details
+  #    # プレイリストビデオの詳細を入手する
   #    YoutubeAPI::next({
   #      "videoId"    => "9bZkp7q19f0",
   #      "playlistId" => "PL_oFlvgqkrjUVQwiiE3F3k3voF4tjXeP0",
@@ -415,7 +415,7 @@ module YoutubeAPI
   #    ```
   #
   def next(continuation : String, *, client_config : ClientConfig | Nil = nil)
-    # JSON Request data, required by the API
+    # API に必要な JSON リクエスト データ
     data = {
       "context"      => self.make_context(client_config),
       "continuation" => continuation,
@@ -426,7 +426,7 @@ module YoutubeAPI
 
   # :ditto:
   def next(data : Hash, *, client_config : ClientConfig | Nil = nil)
-    # JSON Request data, required by the API
+    # API に必要な JSON リクエスト データ
     data2 = data.merge({
       "context" => self.make_context(client_config),
     })
@@ -434,7 +434,7 @@ module YoutubeAPI
     return self._post_json("/youtubei/v1/next", data2, client_config)
   end
 
-  # Allow a NamedTuple to be passed, too.
+  # 名前付きタプルの渡しも許可します。
   def next(data : NamedTuple, *, client_config : ClientConfig | Nil = nil)
     return self.next(data.to_h, client_config: client_config)
   end
@@ -442,22 +442,22 @@ module YoutubeAPI
   ####################################################################
   # player(video_id, params, client_config?)
   #
-  # Requests the youtubei/v1/player endpoint with the required headers
-  # and POST data in order to get a JSON reply.
+  # 必要なヘッダーでyoutubei/v1/playerエンドポイントを要求します
+  # そして、JSONの返信を得るためのPOSTデータ。
   #
-  # The requested data is a video ID (`v=` parameter), with some
-  # additional parameters, formatted as a base64 string.
+  # 要求されたデータはビデオID（`v=`パラメータ）であり、いくつか
+  # Base64文字列としてフォーマットされた追加パラメータ。
   #
-  # An optional ClientConfig parameter can be passed, too (see
-  # `struct ClientConfig` above for more details).
+  # オプションのClientConfigパラメータも渡すことができます（参照
+  # 詳細については、上記の `struct ClientConfig`)。
   #
   def player(
     video_id : String,
-    *, # Force the following parameters to be passed by name
+    *, # 次のパラメータを名前で渡すように強制する
     params : String,
     client_config : ClientConfig | Nil = nil
   )
-    # Playback context, separate because it can be different between clients
+    # 再生コンテキストは、クライアント間で異なる可能性があるため、分離されます。
     playback_ctx = {
       "html5Preference" => "HTML5_PREF_WANTS",
       "referer"         => "https://www.youtube.com/watch?v=#{video_id}",
@@ -469,7 +469,7 @@ module YoutubeAPI
       end
     end
 
-    # JSON Request data, required by the API
+    # API に必要な JSON リクエスト データ
     data = {
       "contentCheckOk" => true,
       "videoId"        => video_id,
@@ -486,7 +486,7 @@ module YoutubeAPI
       },
     }
 
-    # Append the additional parameters if those were provided
+    # 追加のパラメータが提供された場合は、追加します。
     if params != ""
       data["params"] = params
     end
@@ -501,16 +501,16 @@ module YoutubeAPI
   ####################################################################
   # resolve_url(url, client_config?)
   #
-  # Requests the youtubei/v1/navigation/resolve_url endpoint with the
-  # required headers and POST data in order to get a JSON reply.
+  # youtubei/v1/navigation/resolve_urlエンドポイントをリクエストする
+  # JSON 返信を取得するには、ヘッダーと POST データが必要です。
   #
-  # An optional ClientConfig parameter can be passed, too (see
-  # `struct ClientConfig` above for more details).
+  # オプションのClientConfigパラメータも渡すことができます（参照
+  # 詳細については、上記の `struct ClientConfig`)。
   #
   # Output:
   #
   # ```
-  # # Valid channel "brand URL" gives the related UCID and browse ID
+  # # 有効なチャンネル「ブランドURL」は、関連するUCIDと閲覧IDを提供します。
   # channel_a = YoutubeAPI.resolve_url("https://youtube.com/c/google")
   # channel_a # => {
   #   "endpoint": {
@@ -522,7 +522,7 @@ module YoutubeAPI
   #   }
   # }
   #
-  # # Invalid URL returns throws an InfoException
+  # # 無効なURLが返され、InfoExceptionがスローされます。
   # channel_b = YoutubeAPI.resolve_url("https://youtube.com/c/invalid")
   # ```
   #
@@ -538,23 +538,23 @@ module YoutubeAPI
   ####################################################################
   # search(search_query, params, client_config?)
   #
-  # Requests the youtubei/v1/search endpoint with the required headers
-  # and POST data in order to get a JSON reply. As the search results
-  # vary depending on the region, a region code can be specified in
-  # order to get non-US results.
+  # 必要なヘッダーでyoutubei/v1/searchエンドポイントを要求します
+  # そして、JSONの返信を得るためのPOSTデータ。検索結果として
+  # 地域によって異なり、地域コードは指定できます
+  # 米国以外の結果を得るために。
   #
-  # The requested data is a search string, with some additional
-  # parameters, formatted as a base64 string.
+  # 要求されたデータは検索文字列であり、いくつかの追加
+  # パラメータ、base64文字列としてフォーマットされた。
   #
-  # An optional ClientConfig parameter can be passed, too (see
-  # `struct ClientConfig` above for more details).
+  # オプションのClientConfigパラメータも渡すことができます（参照
+  # 詳細については、上記の `struct ClientConfig`)。
   #
   def search(
     search_query : String,
     params : String,
     client_config : ClientConfig | Nil = nil
   )
-    # JSON Request data, required by the API
+    # API に必要な JSON リクエスト データ
     data = {
       "query"   => search_query,
       "context" => self.make_context(client_config),
@@ -567,8 +567,8 @@ module YoutubeAPI
   ####################################################################
   # get_transcript(params, client_config?)
   #
-  # Requests the youtubei/v1/get_transcript endpoint with the required headers
-  # and POST data in order to get a JSON reply.
+  # 必要なヘッダーでyoutubei/v1/get_transcriptエンドポイントを要求します
+  # JSON 返信を取得するためと POST データ。
   #
   # The requested data is a specially encoded protobuf string that denotes the specific language requested.
   #
